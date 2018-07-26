@@ -23,24 +23,8 @@ void ReadCOM()
       }
 }
 
-int main()
-{
-	LPCTSTR sPortName = L"COM4";  // пока 4 ком порт
+void SettingCOM() {
 	
-	//открытие COM порт дл€ чтени€ и записи как с файлом
-	hSerial = ::CreateFile(sPortName, GENERIC_READ | GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0); 
-
-	//проверка на работоспособность ком порта (русский €зык выдаЄт кракоз€бры)
-	if (hSerial == INVALID_HANDLE_VALUE)
-	{
-		if (GetLastError() == ERROR_FILE_NOT_FOUND)
-		{
-			cout << "serial port does not exist.\n";
-		}
-		cout << "some other error occurred.\n";
-	}
-
-
 	DCB dcbSerialParams = { 0 };
 	dcbSerialParams.DCBlength = sizeof(dcbSerialParams);
 	if (!GetCommState(hSerial, &dcbSerialParams))
@@ -55,6 +39,45 @@ int main()
 	{
 		cout << "error setting serial port state\n";
 	}
+}
+
+int main()
+{
+	LPCTSTR sPortName = L"COM4";  // пока 4 ком порт
+	/**********************************************************************************************
+	*
+	*			LPCTSTR Ц указатель на константную строку, без UNICODE. 
+	*			ќт фразы long pointer constant TCHAR string. Ёто надстройка функции LPCSTR.
+	*
+	*			TCHAR Ц символьный тип Ч аналог char и wchar_t.
+	*
+	*			wchar_t Ч это тип данных стандарта ANSI/ISO C 
+	*			(а также использующийс€ в других €зыках программировани€) дл€ представлени€ широких символов
+	*
+	*			L перед строкой означает строку двухбайтных символов.
+	*----------------------	ѕример -------------------------------------------------------
+	*			
+	**			"A"    = 41
+	*						"ABC"  = 41 42 43
+	*						L"A"   = 00 41
+	*						L"ABC" = 00 41 00 42 00 43
+	*
+	************************************************************************************************************/
+	//открытие COM порт дл€ чтени€ и записи как с файлом
+	hSerial = CreateFile(sPortName, GENERIC_READ | GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0); 
+
+	//проверка на работоспособность COM порта (русский €зык выдаЄт кракоз€бры)
+	if (hSerial == INVALID_HANDLE_VALUE)
+	{
+		if (GetLastError() == ERROR_FILE_NOT_FOUND)
+		{
+			cout << "serial port does not exist.\n";
+		}
+		cout << "some other error occurred.\n";
+	}
+
+	// Ќастройка соединени€
+	SettingCOM();
 
 	char data[] = "Hello from C++";
 	DWORD dwSize = sizeof(data);

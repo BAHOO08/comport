@@ -1,3 +1,4 @@
-﻿  main.cpp
-c:\users\bahoo\desktop\com_port_test\com_port_test\com_port_test\main.cpp(62): warning C4101: ov: неиспользованная локальная переменная
-  com_port_test.vcxproj -> C:\Users\BAHOO\Desktop\com_port_test\com_port_test\Debug\com_port_test.exe
+﻿  stdafx.cpp
+  main.cpp
+f:\cppws\terminal_com_port\comport\com_port_test\main.cpp(67): warning C4101: ov: неиспользованная локальная переменная
+  com_port_test.vcxproj -> F:\CppWS\terminal_COM_PORT\ComPort\Debug\com_port_test.exe
