@@ -64,7 +64,7 @@ int main()
 	*
 	************************************************************************************************************/
 	//открытие COM порт дл€ чтени€ и записи как с файлом
-	hSerial = CreateFile(sPortName, GENERIC_READ | GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0); 
+	hSerial = ::CreateFile(sPortName, GENERIC_READ | GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0); 
 
 	//проверка на работоспособность COM порта (русский €зык выдаЄт кракоз€бры)
 	if (hSerial == INVALID_HANDLE_VALUE)
